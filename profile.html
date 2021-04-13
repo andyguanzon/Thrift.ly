@@ -1,0 +1,10 @@
+<h1>My Profile</h1>
+<h6> Account name: {{ session["user"] }} </h6>
+<body>
+    <form method="POST" action="/interests">
+        <div>Sample Interest 1<input type="checkbox" value="interest1" name="checkboxes"></div>
+        <div>Sample Interest 2<input type="checkbox" value="interest2" name="checkboxes"></div>
+        <div><input type="Submit" value = "Update Interests"></div>
+    </form>
+</body>
+</html>

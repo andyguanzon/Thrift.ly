@@ -1,0 +1,16 @@
+{% include "header.html" %}
+    <h1>Product Details</h1>
+    <table>
+        <tr><td>Code</td><td>{{ code }}</td></tr>
+        <tr><td>Item</td><td>{{ product["name"]}}</td></tr>
+        {% if session["user"] is defined %}
+          <tr><td width = 60px><a href="/mine?code={{ code }}">Mine</a></td><td>{{ product["price1"]}}</td></tr>
+          <tr><td width = 60px><a href="/grab?code={{ code }}">Mine</a></td><td>{{ product["price2"]}}</td></tr>
+          <tr><td width = 60px><a href="/steal?code={{ code }}">Mine</a></td><td>{{ product["price3"]}}</td></tr>
+        {% else %}
+        <tr><td>Price</td><td>{{ product["price1"]}}</td></tr><td>to</td><td>{{ product["price3"]}}</td>
+        {% endif %}
+    </table>
+    <td> </td>
+    <a href="/products">Back</a>
+{% include "footer.html" %}
