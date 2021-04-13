@@ -1,0 +1,27 @@
+.header {
+  overflow: hidden;
+  background-color: #7A58FF;
+  background-image: linear-gradient(to bottom right, #7A58FF, #9483D8);
+  position: fixed;
+  top:0;
+  width: 100%;
+  font: 14px Verdana, sans-serif;
+  font-style: bold;
+  float: left;
+}
+
+/* Links inside the header */
+.header a {
+  float: right;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 21px 16px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.header a:hover {
+  background: #ddd;
+  color: black;
+}

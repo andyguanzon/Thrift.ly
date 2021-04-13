@@ -1,0 +1,21 @@
+<head>
+  <meta charset=utf-8>
+  <link rel="stylesheet" href="static/styles/header.css" type="text/css">
+  <!--link rel="stylesheet" href="static/styles/content.css" type="text/css"-->
+</head>
+
+<div class="header">
+  <img src="/static/images/logo.png" height=60px>
+  {% if session["user"] is defined %}
+    <a href='/logout'>Logout</a>
+    <a href='/changepassword'>Change Password<a>
+    <a href="/account">Account</a>
+    <a href='/history'>Purchase History<a>
+    <a href='/cart'>View Cart</a>
+    <a href='/following'>Following</a>
+	{% else %}
+	<a href='/login'>Login</a>
+	{% endif %}
+  <a href='/following'>Following</a>
+  <a href="/">Home</a>
+</div>
