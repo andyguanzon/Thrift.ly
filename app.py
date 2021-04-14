@@ -24,10 +24,10 @@ def auth():
 	username = request.form.get('username')
 	password = request.form.get('password')
 
-	is_successful, user = authentication.login(username, password)
-	app.logger.info('%s', is_successful)
+	is_valid_login, user = authentication.login(username, password)
+	app.logger.info('%s', is_valid_login)
 
-	if(is_successful):
+	if(is_valid_login):
 		session["user"] = user
 		return redirect('/')
 	else:
@@ -85,21 +85,37 @@ def checkout(): # clear cart in session memory upon checkout
 def ordercomplete():
     return render_template('ordercomplete.html')
 
+@app.route('/history')
+def pastorders():
+    pastorders = db.get_pastorders()
+    pastorder_list = []
+    counter1 = 0
+    for pastorder in pastorders:
+        counter1 += 1
+        for info in pastorder['details']:
+            pastorder_list.append(info)
+
+    return render_template('pastorders.html', page="Past Orders", pastorders = pastorder_list, counter1 = counter1)
+
 #sign up
 @app.route("/register", methods=['GET', 'POST'])
-def register(): #issue:check_data not in flask
+def register(): #issue: does not update database
     return render_template("register.html")
-    if request.method == "POST":
-        username = request.form["username"]
-        if check_data(email)
-            username = request.form["username"]
-            password = request.form["password"]
-            print(username)
-            print(password)
-            insert(username, password)
-            return redirect('/')
-        else:
-            return render_template("register_fail.html")
+
+@app.route('/s_auth', methods = ['POST'])
+def s_auth():
+	username = request.form.get('username')
+	password = request.form.get('password')
+
+	is_valid_signup, user = authentication.signup(username, password)
+	app.logger.info('%s', is_valid_signup)
+
+	if(is_valid_signup):
+		session["user"] = user
+		updateuser = db.insert_one(user)
+		return redirect('/')
+	else:
+		return render_template('registerfail.html')
 
 #for you (home) page
 @app.route('/')
@@ -121,7 +137,7 @@ def match_interests():
 
 #following page
 @app.route('/following')
-def following():
+def followings():
     following_list = db.get_following()
     seller_list = db.get_sellers()
     not_following = True
