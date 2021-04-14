@@ -19,19 +19,17 @@ app.logger.setLevel(logging.INFO)
 def login():
 	return render_template('login.html')
 
-@app.route('/auth', methods = ['POST'])
+@app.route('/auth', methods = ['GET', 'POST'])
 def auth():
-	username = request.form.get('username')
-	password = request.form.get('password')
-
-	is_valid_login, user = authentication.login(username, password)
-	app.logger.info('%s', is_valid_login)
-
-	if(is_valid_login):
-		session["user"] = user
-		return redirect('/')
-	else:
-		return render_template('loginfailed.html')
+    username = request.form.get('username')
+    password = request.form.get('password')
+    is_successful, user = authentication.login(username, password)
+    app.logger.info('%s', is_successful)
+    if(is_successful):
+        session["user"] = user
+        return redirect('/')
+    else:
+        return render_template('/loginfailed.html')
 
 @app.route('/productdetails')
 def productdetails():
@@ -107,10 +105,10 @@ def s_auth():
 	username = request.form.get('username')
 	password = request.form.get('password')
 
-	is_valid_signup, user = authentication.signup(username, password)
-	app.logger.info('%s', is_valid_signup)
+	is_successful, user = authentication.signup(username, password)
+	app.logger.info('%s', is_successful)
 
-	if(is_valid_signup):
+	if(is_successful):
 		session["user"] = user
 		updateuser = db.insert_one(user)
 		return redirect('/')
