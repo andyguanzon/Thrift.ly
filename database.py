@@ -76,3 +76,21 @@ def get_sellers():
       seller_list.append(s)
 
     return seller_list
+
+def match_iproducts(interest_list, tag_list):
+    product_list=[]
+    for i in interest_list: #curate page by interests
+        for t in tag_list:
+            if i == t: #matched interest
+                for p in products_coll.find({'interest_tag':i}):
+                    product_list.append(p)
+    return product_list
+
+def match_fproducts(following_list, seller_list):
+    fproduct_list=[]
+    for f in following_list: #show only products from sellers followed
+        for s in seller_list:
+            if f == s: #matched seller account
+                for p in products_coll.find({'seller_name':f}):
+                    fproduct_list.append(p)
+    return fproduct_list
