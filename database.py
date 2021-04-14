@@ -25,6 +25,18 @@ def get_products():
 
     return product_list
 
+def create_order(order):
+    orders_coll = order_management_db['orders']
+    orders_coll.insert(order)
+
+def get_pastorders():
+    pastorder_list = []
+    pastorders_coll = order_management_db['orders']
+    for p in pastorders_coll.find({"username":session["user"]["username"]}):
+        pastorder_list.append(p)
+
+    return pastorder_list
+
 def get_interest():
     interest_list=[]
     customers_coll = order_management_db['customers']
