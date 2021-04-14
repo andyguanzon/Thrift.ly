@@ -118,7 +118,7 @@ def s_auth():
 
 #for you (home) page
 @app.route('/')
-def match_interests():
+def matched_interests():
     interest_list = db.get_interest()
     tag_list = db.get_tag()
     product_list=[]
@@ -126,17 +126,13 @@ def match_interests():
     if not interest_list: #list is empty
         product_list=db.get_products() #show all products
     else:
-        for i in interest_list: #curate page by interests
-            for t in tag_list:
-                if i == t: #matched interest
-                    for p in products_coll.find({'interest_tag':i}):
-                        product_list.append(p)
+        product_list=db.match_iproducts(interest_list, tag_list)
 
     return render_template('foryou.html', page="For You", product_list=product_list)
 
 #following page
 @app.route('/following')
-def following():
+def matched_following():
     following_list = db.get_following()
     seller_list = db.get_sellers()
     not_following = True
@@ -146,11 +142,7 @@ def following():
         not_following = True
     else:
         not_following = False
-        for f in following_list: #show only products from sellers followed
-            for s in seller_list:
-                if f == s: #matched seller account
-                    for p in products_coll.find({'seller_name':f}):
-                        fproduct_list.append(p)
+        fproduct_list = db.match_fproducts(following_list,seller_list)
 
     return render_template('following.html', page="Following", fproduct_list=fproduct_list, not_following=not_following)
 
