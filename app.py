@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, session, make_response
+from flask import Flask, redirect, render_template, request, session, make_response, check_data
 from bson.json_util import loads, dumps
 import database as db
 import authentication
@@ -87,18 +87,16 @@ def ordercomplete():
 
 #sign up
 @app.route("/register", methods=['GET', 'POST'])
-def register(): #issue: does not update database
+def register():
     return render_template("register.html")
     if request.method == "POST":
-        email = request.form["email"]
-        if check_data(email):
-            email = request.form["email"]
-            name = request.form["name"]
+        username = request.form["username"]
+        if check_data(email)
+            username = request.form["username"]
             password = request.form["password"]
-            print(name)
-            print(email)
+            print(username)
             print(password)
-            insert(name, email, password)
+            insert(username, password)
             return redirect('/')
         else:
             return render_template("register_fail.html")
