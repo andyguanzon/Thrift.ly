@@ -18,6 +18,7 @@ def signup(username, password):
 	user=None
 	temp_user = db.get_user(username)
 	if temp_user is None:
+		is_valid_signup = True
 		user={"username":username, "password":password,
 		"interests":temp_user["interests"],
 		"following":temp_user["following"]}
