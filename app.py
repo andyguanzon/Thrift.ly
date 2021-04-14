@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, session, make_response, check_data
+from flask import Flask, redirect, render_template, request, session, make_response
 from bson.json_util import loads, dumps
 import database as db
 import authentication
@@ -87,7 +87,7 @@ def ordercomplete():
 
 #sign up
 @app.route("/register", methods=['GET', 'POST'])
-def register():
+def register(): #issue:check_data not in flask
     return render_template("register.html")
     if request.method == "POST":
         username = request.form["username"]
