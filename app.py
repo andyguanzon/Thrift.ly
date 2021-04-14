@@ -1,4 +1,5 @@
-from flask import Flask, redirect, render_template, request, session, make_response
+from flask import Flask, redirect, render_template, request, make_response
+from flask import session
 from bson.json_util import loads, dumps
 import database as db
 import authentication
@@ -171,7 +172,7 @@ def mine():
     product = db.get_product(int(code))
     item=dict()
 
-    item["name"] = product["name"]
+    item["name"] = product["product_name"]
     item["subtotal"] = product["price1"]
     item["code"] = code
 
@@ -189,7 +190,7 @@ def grab():
     product = db.get_product(int(code))
     item=dict()
 
-    item["name"] = product["name"]
+    item["name"] = product["product_name"]
     item["subtotal"] = product["price2"]
     item["code"] = code
 
@@ -207,7 +208,7 @@ def steal():
     product = db.get_product(int(code))
     item=dict()
 
-    item["name"] = product["name"]
+    item["name"] = product["product_name"]
     item["subtotal"] = product["price3"]
     item["code"] = code
 

@@ -3,7 +3,7 @@ import pymongo
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
 products_db = myclient["products"]
-order_management_db = myclient["customers"]
+order_management_db = myclient["order_management"]
 
 def get_user(username):
     customers_coll = order_management_db['customers']
@@ -40,7 +40,7 @@ def get_pastorders():
 def get_interest():
     interest_list=[]
     customers_coll = order_management_db['customers']
-    interest_coll=customers_coll['interests'] #change according to jules' variables
+    interest_coll=customers_coll['interests']
 
     for i in interest_coll.find({}):
         interest_list.append(i)
@@ -56,6 +56,24 @@ def get_tag():
       tag_list.append(t)
 
     return tag_list
+
+def match_iproducts(interest_list, tag_list):
+    product_list=[]
+    for i in interest_list: #curate page by interests
+        for t in tag_list:
+            if i == t: #matched interest
+                for p in products_coll.find({'interest_tag':i}):
+                    product_list.append(p)
+    return product_list
+
+def match_fproducts(following_list, seller_list):
+    fproduct_list=[]
+    for f in following_list: #show only products from sellers followed
+        for s in seller_list:
+            if f == s: #matched seller account
+                for p in products_coll.find({'seller_name':f}):
+                    fproduct_list.append(p)
+    return fproduct_list
 
 def get_following():
     following_list=[]
@@ -76,21 +94,3 @@ def get_sellers():
       seller_list.append(s)
 
     return seller_list
-
-def match_iproducts(interest_list, tag_list):
-    product_list=[]
-    for i in interest_list: #curate page by interests
-        for t in tag_list:
-            if i == t: #matched interest
-                for p in products_coll.find({'interest_tag':i}):
-                    product_list.append(p)
-    return product_list
-
-def match_fproducts(following_list, seller_list):
-    fproduct_list=[]
-    for f in following_list: #show only products from sellers followed
-        for s in seller_list:
-            if f == s: #matched seller account
-                for p in products_coll.find({'seller_name':f}):
-                    fproduct_list.append(p)
-    return fproduct_list

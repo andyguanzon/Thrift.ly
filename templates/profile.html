@@ -1,7 +1,7 @@
-{% include header.html %}
+{% include 'header.html' %}
 
 <h1>My Profile</h1>
-<h6> Account name: {{ session["user"] }} </h6>
+<h3> Account name: {{ session["user"]['username'] }} </h3>
 <body>
     <form method="POST" action="/interests">
         <div>Sample Interest 1<input type="checkbox" value="interest1" name="checkboxes"></div>
@@ -9,4 +9,4 @@
         <div><input type="Submit" value = "Update Interests"></div>
     </form>
 
-{% include footer.htmls %}
+{% include 'footer.html' %}
