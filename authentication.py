@@ -21,6 +21,5 @@ def signup(username, password, password2):
 		if password == password2:
 			is_valid_signup = True
 			user={"username":username, "password":password,
-			"interests":temp_user["interests"],
-			"following":temp_user["following"]}
+			"interests":"", "following":""}
 	return is_valid_signup, user
