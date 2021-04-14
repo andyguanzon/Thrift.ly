@@ -99,7 +99,7 @@ def pastorders():
 
 #sign up
 @app.route("/register", methods=['GET', 'POST'])
-def register(): #issue: does not update database
+def register():
     return render_template("register.html")
 
 @app.route('/s_auth', methods = ['POST'])
@@ -137,7 +137,7 @@ def match_interests():
 
 #following page
 @app.route('/following')
-def followings():
+def following():
     following_list = db.get_following()
     seller_list = db.get_sellers()
     not_following = True
