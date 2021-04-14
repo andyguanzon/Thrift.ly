@@ -13,13 +13,14 @@ def login(username, password):
 
     return is_valid_login, user
 
-def signup(username, password):
+def signup(username, password, password2):
 	is_valid_signup = False
 	user=None
 	temp_user = db.get_user(username)
 	if temp_user is None:
-		is_valid_signup = True
-		user={"username":username, "password":password,
-		"interests":temp_user["interests"],
-		"following":temp_user["following"]}
+		if password == password2:
+			is_valid_signup = True
+			user={"username":username, "password":password,
+			"interests":temp_user["interests"],
+			"following":temp_user["following"]}
 	return is_valid_signup, user
