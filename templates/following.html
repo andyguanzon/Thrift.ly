@@ -1,0 +1,31 @@
+{% include "header.html" %}
+  <h1>Who You Follow</h1>
+  {% if session['user'] is defined %}
+    {% if not_following %}
+      <div> Go to your account to follow someone. </div>
+    {% else %}
+      <table>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Tag</th>
+          <th>Seller</th>
+        </tr>
+        {% for fp in fproduct_list %}
+          <tr>
+            <td>
+              <a href="productdetails?code={{product["code"]}}">
+                <img src='static/images/product3.jpg' width=100px>
+              </a>
+            </td>
+            <td>{{product["product_name"]}}</td>
+            <td>{{product["description"]}}</td>
+            <td>{{product["interest_tags"]}}</td>
+            <td>{{product["seller_name"]}}</td>
+          </tr>
+          {% endfor %}
+      </table>
+    {% endif %}
+  {% endif %}
+{% include "footer.html" %}
