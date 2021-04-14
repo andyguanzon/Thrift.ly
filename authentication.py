@@ -1,7 +1,6 @@
 import database as db
 
 def login(username, password):
-	def login(username, password):
     is_valid_login = False
     user=None
     temp_user = db.get_user(username)
