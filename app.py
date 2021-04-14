@@ -106,7 +106,7 @@ def s_auth():
 	password = request.form.get('password')
 	password2 = request.form.get('password2')
 
-	is_successful, user = authentication.signup(username, password)
+	is_successful, user = authentication.signup(username, password, password2)
 	app.logger.info('%s', is_successful)
 
 	if(is_successful):
