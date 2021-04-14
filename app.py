@@ -111,7 +111,7 @@ def s_auth():
 
 	if(is_successful):
 		session["user"] = user
-		updateuser = db.insert(user)
+		updateuser = db.insert_one(user)
 		return redirect('/')
 	else:
 		return render_template('registerfail.html')
